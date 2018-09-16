@@ -22,6 +22,12 @@ function viewPlace(profile, pic) {
   }
 }
 
+function resetPlace() {
+  return (dispatch) => {
+    dispatch({ type: 'RESETPLACE' });
+  }
+}
+
 // ALL ASYNC actions using THUNK
 
 // Get profile, including image
@@ -66,5 +72,6 @@ export {
   addList,
   resolveProfile,
   resolveNewPlace,
-  viewPlace
+  viewPlace,
+  resetPlace
 };

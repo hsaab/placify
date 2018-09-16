@@ -23,6 +23,11 @@ const search = (state, action) => {
       newState.pic = action.pic;
       newState.newProfile = false;
       return newState;
+    case 'RESETPLACE':
+      newState.profile = null;
+      newState.pic = null;
+      newState.newProfile = true;
+      return newState;
     default:
       return state
   }

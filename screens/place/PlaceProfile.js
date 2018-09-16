@@ -30,14 +30,21 @@ class PlaceProfile extends React.Component {
   };
 
   componentDidMount() {
-    // Grab place_id and distance from react navigation state for profile
-    const place_id = this.props.navigation.getParam('place_id', false);
-    const title = this.props.navigation.getParam('title', null);
-    const distance = this.props.navigation.getParam('distance', null);
-    this.setState({ distance });
+    // Grab place_id and distance from react navigation state for profile if new profile
+    const { newProfile } = this.props.search;
+    if(newProfile) {
+      const place_id = this.props.navigation.getParam('place_id', false);
+      const title = this.props.navigation.getParam('title', null);
+      const distance = this.props.navigation.getParam('distance', null);
+      this.setState({ distance });
 
-    // Dispatch function to grab place profile from API, using Thunk to handle async
-    this.props.resolveProfile(place_id, title, distance);
+      // Dispatch function to grab place profile from API, using Thunk to handle async
+      this.props.resolveProfile(place_id, title, distance);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.resetPlace();
   }
 
   render() {
@@ -111,7 +118,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    resolveProfile: actions.resolveProfile.bind(this)
+    resolveProfile: actions.resolveProfile.bind(this),
+    resetPlace: actions.resetPlace.bind(this)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceProfile);
